@@ -1,7 +1,7 @@
 import React from 'react';
 import Head from 'next/head'; 
 
-const page: React.FC = () => {
+const Page: React.FC = () => {  // Capitalized 'Page'
     return (
         <>
             <Head>
@@ -38,4 +38,5 @@ const page: React.FC = () => {
     );
 };
 
-export default page;
+export default Page;  // Capitalized 'Page'
+
