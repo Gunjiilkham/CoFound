@@ -1,1 +1,4 @@
-My name is Naomi Enogieru. I am a 3rd year computer science major at Drexel University. I also have concentrations in machine learning and software engineering. On previous projects and internships, I have worked with languages such as Python, Djaango (which is a web development framework), and C#. I am mostly interested in back-end development positions, which is why I took on the role as a back-end developer for our group's project. I also work best in a collaborative and teamwork environment, as efficient problem solving leads to successful project outcomes.
+My name is Naomi Enogieru. I am a 3rd year computer science major at Drexel University. 
+I also have concentrations in machine learning and software engineering. On previous projects and internships, 
+I have worked with languages such as Python, Djaango (which is a web development framework), and C#. I am mostly interested in back-end development positions, which is why I took on the role as a back-end developer for our group's project. 
+I also work best in a collaborative and teamwork environment, as efficient problem solving leads to successful project outcomes.
