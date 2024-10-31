@@ -17,6 +17,7 @@ const Page: React.FC = () => {
                 <h2 style={{ fontWeight: 'bold', fontSize: '2em' }}>Love Your Career</h2>
             </header>
 
+<<<<<<< HEAD
             <article style={{ display: 'flex', justifyContent: 'center', marginTop: '-130px'}}>
             <Image
                 id="homeLogo"
@@ -27,6 +28,8 @@ const Page: React.FC = () => {
                 />
             </article>
 
+=======
+>>>>>>> 858ed96 (Modified login page layout!)
             <main>
                 <section id="home">
                     <center>
