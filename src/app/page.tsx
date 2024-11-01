@@ -17,6 +17,16 @@ const Page: React.FC = () => {
                 <h2 style={{ fontWeight: 'bold', fontSize: '2em' }}>Love Your Career</h2>
             </header>
 
+            <article style={{ display: 'flex', justifyContent: 'center', marginTop: '-130px'}}>
+            <Image
+                id="homeLogo"
+                src="/favicon2.ico"
+                width={250}
+                height={250}
+                alt="Tindernship."
+                />
+            </article>
+
             <main>
                 <section id="home">
                     <center>
