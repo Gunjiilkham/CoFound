@@ -33,11 +33,11 @@ const Page = () => {
                         <center>
                             <p>Discover personalized internship suggestions in only a few swipes.</p>
                             <div className="button-container">
-                                <Link href="/signin">
+                                <Link href="/signIn">
                                     <button className="auth-button">Sign In</button>
                                 </Link>
-                                <Link href="/signup">
-                                    <button className="auth-button">Sign Up</button>
+                                <Link href="/profile">
+                                    <button className="auth-button">User Profile</button>
                                 </Link>
                             </div>
                         </center>
