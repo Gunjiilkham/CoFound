@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/profile.css';
 
-
 const Profile = () => {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
@@ -10,8 +9,10 @@ const Profile = () => {
   const [gradYear, setGradYear] = useState('');
 
   const [message, setMessage] = useState('');
+  const [file, setFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
-  const handleSubmit = (event) => {
+  const handleProfileSubmit = (event) => {
     event.preventDefault();
 
     if (!name || !age  || !major || !college || !gradYear) {
@@ -29,6 +30,43 @@ const Profile = () => {
     // setCollege('');
     // setGradYear('');
   };
+
+  const handleFileChange = (event) => {
+    setFile(event.target.files[0]);
+    };
+  
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+  
+  if (!file) {
+      setMessage('Please select a file to upload.');
+      return;
+    }
+  
+  const formData = new FormData();
+  formData.append('pdf', file);
+  
+  setUploading(true);
+  setMessage('Uploading...');
+  
+  try {
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      body: formData,
+    });
+  
+    if (!res.ok) {
+      throw new Error('Failed to upload PDF');
+    }
+  
+    setMessage('File uploaded successfully!');
+  } catch (error) {
+    setMessage(`Error: ${error.message}`);
+  } finally {
+    setUploading(false);
+  }
+};
+  
 
   return (
     <div className="profile-container">
@@ -99,13 +137,25 @@ const Profile = () => {
         </section>
 
         <div>
+        <h1>Upload </h1>
+          <div onSubmit={handleSubmit}>
+            <input type="file" accept="application/pdf" onChange={handleFileChange} />
+              <button type="submit" disabled={uploading}>
+                {uploading ? 'Uploading...' : 'Upload PDF'}
+              </button>
+            </div>
+          {message && <p>{message}</p>}
+        </div>
+
+        <div>
           <button type="submit">Update Profile</button>
         </div>
       </form>
 
       {message && <p>{message}</p>}
-    </div>
+    </div> 
   );
 };
+
 
 export default Profile;
