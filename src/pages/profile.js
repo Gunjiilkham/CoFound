@@ -7,6 +7,11 @@ const Profile = () => {
   const [major, setMajor] = useState('');
   const [college, setCollege] = useState('');
   const [gradYear, setGradYear] = useState('');
+  const [field, setField] = useState('');
+  const [careerGoals, setCareerGoals] = useState('');
+  const [location, setLocation] = useState('')
+  const [experience, setExperience] = useState('')
+  const [skills, setSkills] = useState('')
 
   const [message, setMessage] = useState('');
   const [file, setFile] = useState(null);
@@ -97,6 +102,17 @@ const Profile = () => {
               placeholder="Enter your age"
             />
           </div>
+
+          <div>
+            <label htmlFor="location">Location:</label>
+            <input
+              type="text"
+              id="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              placeholder="City, State"
+            />
+          </div>
         </section>
 
         {/* Education Information Section */}
@@ -136,6 +152,87 @@ const Profile = () => {
           </div>
         </section>
 
+        {/* Career Section */}
+        <section>
+          <h2>Career</h2>
+          <div>
+            <label htmlFor="field">Field:</label>
+            <select  
+              id="field" 
+              value={field} 
+              onChange={(e) => setField(e.target.value)} 
+            >
+              <option value="" disabled>
+              -- Select an option --
+              </option>
+              <option value="accounting">Accounting</option>
+              <option value="architecturalEngineering">Architectural Engineering</option>
+              <option value="artAndDesign">Art and Design</option>
+              <option value="animation">Animation</option>
+              <option value="business">Business</option>
+              <option value="computerProgramming">Computer Programming</option>
+              <option value="computerSystems">Computer Systems</option>
+              <option value="education">Education</option>
+              <option value="engineering">Engineering</option>
+              <option value="finance">Finance</option>
+              <option value="gameDesign">Game Design</option>
+              <option value="gameDevelopment">Game Development</option>
+              <option value="law">Law</option>
+              <option value="healthSciences">Health Sciences</option>
+              <option value="humanServices">Human Services</option>
+              <option value="informationTechnology">Information Technology</option>
+              <option value="marketing">Marketing</option>
+              <option value="sales">Sales</option>
+              <option value="softwareEngineering">Software Engineering</option>
+            </select>
+          </div>
+
+          <div>
+            <label htmlFor="careerGoals">Career Goals:</label>
+          </div>
+          <div>
+            <textarea 
+              type="text"
+              id="careerGoals"
+              rows="4"
+              cols="50" 
+              value={careerGoals} 
+              onChange={(e) => setCareerGoals(e.target.value)} 
+              placeholder="Where do you see yourself in 10 years?"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="experience">Experience:</label>
+          </div>
+          <div>
+            <textarea 
+              type="text"
+              id="experience"
+              rows="4"
+              cols="50" 
+              value={experience} 
+              onChange={(e) => setExperience(e.target.value)} 
+              placeholder="Noteable places of employment?"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="skills">Skills:</label>
+          </div>
+          <div>
+            <textarea 
+              type="text"
+              id="experience"
+              rows="4"
+              cols="50" 
+              value={skills} 
+              onChange={(e) => setSkills(e.target.value)} 
+              placeholder="What are your strongest skillsets?"
+            />
+          </div>
+        </section>
+        
         <div>
         <h1>Upload </h1>
           <div onSubmit={handleSubmit}>
