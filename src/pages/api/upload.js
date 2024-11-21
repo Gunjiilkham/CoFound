@@ -20,18 +20,27 @@ export default function handler(req, res) {
 
   form.parse(req, (err, fields, files) => {
     if (err) {
-      return res.status(500).json({ error: 'File upload failed' });
+      console.error('Error parsing the form:', err);
+      return res.status(500).json({ error: 'Error uploading file' });
     }
 
-    const uploadedFile = files.pdf[0];
+    const uploadedFile = files.pdf;
+    if (!uploadedFile) {
+      return res.status(400).json({ error: 'No file uploaded' });
+    }
+
     const tempFilePath = uploadedFile.filepath;
     const permanentFilePath = path.join(uploadDir, uploadedFile.originalFilename);
-    
-    fs.renameSync(tempFilePath, permanentFilePath);
 
-    res.status(200).json({
-      message: 'File uploaded successfully!',
-      filePath: permanentFilePath,
-    });
+    try {
+      fs.renameSync(tempFilePath, permanentFilePath);
+      res.status(200).json({
+        message: 'File uploaded successfully!',
+        filePath: permanentFilePath,
+      });
+    } catch (renameError) {
+      console.error('Error moving the file:', renameError);
+      res.status(500).json({ error: 'Error saving the file' });
+    }
   });
 }
