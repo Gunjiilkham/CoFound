@@ -146,7 +146,7 @@ const Profile = () => {
           </div>
         </section>
 
-        {/* Career Section */}
+        {/* Career Section  Kent Omolade*/}
         <section>
           <h2>Career</h2>
           <div>

@@ -1,55 +1,45 @@
-import React from 'react';
-import Head from 'next/head'; 
-import Image from 'next/image';
-import Link from 'next/link';
+"use client"; // Ensure the file is treated as a client component
 
-const Page = () => { 
-    return (
-        <>
-            <Head>
-                <meta charSet="UTF-8" />
-                <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-                <title>Tindernships</title>
-            </Head>
+import { useRouter } from 'next/navigation';
 
-            <div className="page-container">
-                <header className="header">
-                    <h1 className="title">Tindernship</h1>
-                    <h2 className="subtitle">Love Your Career</h2>
-                </header>
+const Page = () => {
+  const router = useRouter();
 
-                <article className="logo-container">
-                    <Image
-                        id="homeLogo"
-                        src="/favicon2.ico"
-                        width={250}
-                        height={250}
-                        alt="Tindernship."
-                    />
-                </article>
+  const navigateToJobListings = () => {
+    router.push('/jobListings'); // Navigate programmatically
+  };
 
-                <main>
-                    <section id="home">
-                        <center>
-                            <p>Discover personalized internship suggestions in only a few swipes.</p>
-                            <div className="button-container">
-                                <Link href="/signIn">
-                                    <button className="auth-button">Sign In</button>
-                                </Link>
-                                <Link href="/profile">
-                                    <button className="auth-button">User Profile</button>
-                                </Link>
-                            </div>
-                        </center>
-                    </section>
-                </main>
+  return (
+    <div className="page-container">
+      <header className="header">
+        <h1 className="title">Tindernship</h1>
+        <h2 className="subtitle">Love Your Career</h2>
+      </header>
 
-                <footer className="footer">
-                    <p>&copy; 2024 Tindernships. All rights reserved.</p>
-                </footer>
+      <main>
+        <section id="home">
+          <center>
+            <p>Discover personalized internship suggestions in only a few swipes.</p>
+            <div className="button-container">
+              <button className="auth-button" onClick={navigateToJobListings}>
+                Job Listings
+              </button>
+              <button className="auth-button">
+                <a href="/signIn">Sign In</a>
+              </button>
+              <button className="auth-button">
+                <a href="/profile">User Profile</a>
+              </button>
             </div>
-        </>
-    );
+          </center>
+        </section>
+      </main>
+
+      <footer className="footer">
+        <p>&copy; 2024 Tindernships. All rights reserved.</p>
+      </footer>
+    </div>
+  );
 };
 
 export default Page;

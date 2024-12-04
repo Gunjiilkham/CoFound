@@ -1,0 +1,74 @@
+body {
+    background-color: #111; /* Dark background for contrast */
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    color: #fff;
+  }
+  
+  .form-container {
+    background-color: #1c1c1c; /* Slightly lighter black for form background */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    width: 300px;
+    text-align: center;
+  }
+  
+  .form-container h2 {
+    margin-bottom: 20px;
+    color: #f1f1f1; /* Slightly lighter shade for contrast */
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  label {
+    text-align: left;
+    font-weight: bold;
+    margin: 10px 0 5px;
+  }
+  
+  input {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #333;
+    background-color: #222;
+    color: #fff;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+  }
+  
+  input::placeholder {
+    color: #888; /* Placeholder in gray */
+  }
+  
+  input:focus {
+    outline: none;
+    border: 1px solid #777;
+  }
+  
+  button {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    background-color: #333;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #444; /* Lighter on hover */
+  }
+  
+  button:active {
+    background-color: #555; /* Even lighter on click */
+  }
+  

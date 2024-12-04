@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../styles/SignIn.css';
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
@@ -6,7 +7,6 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle login logic here, like API calls
     console.log('Signing in with:', username, password);
   };
 
