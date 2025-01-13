@@ -19,29 +19,41 @@ const JobListings = () => {
       <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
         Available Jobs
       </h2>
-      <ul>
-        {jobs.map((job, index) => (
-          <li
-            key={index}
-            className="bg-white p-5 rounded-lg mb-4 hover:shadow-md hover:-translate-y-1 transform transition duration-200"
-          >
-            <h3 className="text-xl font-semibold text-blue-700 mb-2">
-              {job.title}
-            </h3>
-            <p className="text-gray-600">Company: {job.company_name}</p>
-            <p className="text-gray-600">Location: {job.location}</p>
-            <p className="text-gray-600 mb-3">{job.description}</p>
-            <a
-              href={job.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+      {jobs.length === 0 ? (
+        <p className="text-center text-gray-600">No job listings available at the moment.</p>
+      ) : (
+        <ul>
+          {jobs.map(job => (
+            <li
+              key={job.id}
+              className="bg-white p-5 rounded-lg mb-4 hover:shadow-md hover:-translate-y-1 transform transition duration-200"
             >
-              Apply Here
-            </a>
-          </li>
-        ))}
-      </ul>
+              <div className="flex items-center mb-4">
+                <img
+                  src={job.logo || 'https://via.placeholder.com/50'}
+                  alt={job.company_name}
+                  className="w-12 h-12 mr-4"
+                />
+                <div>
+                  <h3 className="text-xl font-semibold text-blue-700 mb-1">{job.title}</h3>
+                  <p className="text-gray-600">{job.company_name}</p>
+                </div>
+              </div>
+              <p className="text-gray-600">{job.location}</p>
+              <p className="text-gray-600 mb-3">{job.description.slice(0, 150)}...</p>
+              <p className="text-sm text-gray-500 mb-2">Posted on: {job.date_posted}</p>
+              <a
+                href={job.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+              >
+                Apply Here
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 };
