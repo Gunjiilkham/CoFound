@@ -1,31 +1,35 @@
-require('dotenv').config();
-const axios = require('axios');
+import axios from 'axios';
 
 async function fetchJobs() {
     try {
-        const response = await axios.get('https://findwork.dev/api/jobs/', {
-            headers: {
-                'Authorization': `Token ${process.env.FINDWORK_API_KEY}`, // Use your API key securely
-            },
-        });
-
-        // Map the response to a simplified format
+        // Make request to our local API route instead of directly to findwork.dev
+        const response = await axios.get('/api/jobs');
+        
+        // Format the response
         const jobs = response.data.results.map(job => ({
             id: job.id,
             title: job.role,
             company_name: job.company_name,
             location: job.location || 'Remote',
-            description: job.text.replace(/<[^>]+>/g, ''), // Remove HTML tags
+            description: job.text ? job.text.replace(/<[^>]+>/g, '') : 'No description available',
             url: job.url,
-            date_posted: new Date(job.date_posted).toLocaleDateString(),
-            logo: job.logo,
+            date_posted: new Date(job.date_posted).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            }),
+            logo: job.logo || '/placeholder-company-logo.png',
         }));
 
         return jobs;
+
     } catch (error) {
-        console.error('Error fetching jobs:', error.message);
-        return [];
+        console.error('Error fetching jobs:', error);
+        throw new Error(
+            error.response?.data?.error || 
+            'Failed to fetch job listings. Please try again later.'
+        );
     }
 }
 
-module.exports = fetchJobs;
+export default fetchJobs;
