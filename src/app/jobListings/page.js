@@ -1,3 +1,5 @@
-import JobListingsPage from './JobListings';
+import JobListings from './JobListings';
 
-export default JobListingsPage;
+export default function JobListingsPage() {
+    return <JobListings />;
+}
