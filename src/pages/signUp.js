@@ -1,5 +1,6 @@
 import '../styles/SignIn.css';
 import React, { useState } from 'react';
+import Link from 'next/link';
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
@@ -47,7 +48,9 @@ const SignUp = () => {
           placeholder="Confirm your password"
         />
 
-        <button type="submit">Sign Up</button>
+        <Link href="/profile" passHref> 
+          <button>Sign Up!</button>
+        </Link>
       </form>
     </div>
   );
