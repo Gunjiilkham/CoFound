@@ -5,9 +5,6 @@ import { useRouter } from 'next/navigation';
 const Page = () => {
   const router = useRouter();
 
-  const navigateToJobListings = () => {
-    router.push('/jobListings'); // Navigate programmatically
-  };
 
   return (
     <div className="page-container">
@@ -21,14 +18,11 @@ const Page = () => {
           <center>
             <p>Discover personalized internship suggestions in only a few swipes.</p>
             <div className="button-container">
-              <button className="auth-button" onClick={navigateToJobListings}>
-                Job Listings
-              </button>
               <button className="auth-button">
                 <a href="/signIn">Sign In</a>
               </button>
               <button className="auth-button">
-                <a href="/profile">User Profile</a>
+                <a href="/signUp">Sign Up</a>
               </button>
             </div>
           </center>
