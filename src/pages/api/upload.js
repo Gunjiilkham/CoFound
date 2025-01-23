@@ -28,6 +28,13 @@ export default function handler(req, res) {
     if (!uploadedFile) {
       return res.status(400).json({ error: 'No file uploaded' });
     }
+
+    const allowedTypes = ['application/pdf', 'text/html'];
+    if (!allowedTypes.includes(uploadedFile.mimetype)) {
+    return res.status(400).json({error: 'No file uploaded'});
+    }
+    
+
 {/* Naomi  */}
     const tempFilePath = uploadedFile.filepath;
     const permanentFilePath = path.join(uploadDir, uploadedFile.originalFilename);
