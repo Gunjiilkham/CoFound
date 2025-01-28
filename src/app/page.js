@@ -47,26 +47,26 @@ const Page = () => {
 
       <section
         className="min-h-screen w-full flex flex-col items-left place-content-start bg-cover bg-center"
-        style={{ backgroundImage: "url('/crumpled-paper-background.jpg')" }}>
-          <h2 className="text-3xl md:text-5xl font-bold text-left pt-10 mt-10 ml-10 text-slate-900">
+        style={{ backgroundImage: "url('/texturebackground.jpg')" }}>
+          <h2 className="text-3xl md:text-5xl font-bold text-left pt-10 mt-10 ml-10 text-slate-200">
             Tindernship is...
           </h2>
-          <p className="text-xl md:text-xl italic text-right text-slate-800 pt-10 mr-10 mb-8">
+          <p className="text-xl md:text-xl italic text-right text-slate-100 pt-10 mr-10 mb-8">
             ... A platform created with the goal to connect university students to internships.
           </p>
-          <p className="text-xl md:text-xl italic text-right text-slate-800 mr-10 mb-8">
+          <p className="text-xl md:text-xl italic text-right text-slate-100 mr-10 mb-8">
             ... A simple swiping-based tool for finding personalized internships.
           </p>
-          <h2 className="text-3xl md:text-5xl font-bold text-left pt-10 mt-10 ml-10 text-slate-900">
+          <h2 className="text-3xl md:text-5xl font-bold text-left pt-10 mt-10 ml-10 text-slate-200">
             Tindernship has...
           </h2>
-          <p className="text-xl md:text-xl italic text-right text-slate-800 pt-10 mr-10 mb-8">
+          <p className="text-xl md:text-xl italic text-right text-slate-100 pt-10 mr-10 mb-8">
             ... An intricate database of internships and joblistings.
           </p>
-          <p className="text-xl md:text-xl italic text-right text-slate-800 mr-10 mb-8">
+          <p className="text-xl md:text-xl italic text-right text-slate-100 mr-10 mb-8">
             ... An AI-powered algorithm for connecting users to their desired internships.
           </p>
-        <div className="flex gap-4 pt-10 justify-center">
+        <div className="flex gap-4 pt-10 justify-center mb-10">
           <button className="px-15 py-5 bg-blue-800 text-white font-medium rounded-full hover:bg-blue-900">
             <a href="/signUp">Get Started</a>
           </button>
