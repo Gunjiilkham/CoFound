@@ -58,10 +58,10 @@ async function filterInternships(jobs) {
     const filteredChunks = await Promise.all(
         chunks.map(async (chunk) => {
             const completion = await openai.chat.completions.create({
-                model: "gpt-4o-mini",  // This is a valid model name
+                model: "gpt-4o-mini",
                 messages: [{
                     role: "system",
-                    content: "You are a job filtering assistant. Analyze the job listings and return only those that are internships or entry-level positions suitable for students. Return the response as a JSON array of indices of matching positions."
+                    content: "You are a job filtering assistant. Analyze the job listings and return only those that are internships or entry-level positions suitable for students. Return ONLY a JSON array of indices of matching positions, with no markdown formatting or explanation. For example: [0,2,5]"
                 }, {
                     role: "user",
                     content: JSON.stringify(chunk.map(job => ({
@@ -69,12 +69,25 @@ async function filterInternships(jobs) {
                         description: job.description
                     })))
                 }],
-                // No store parameter needed
-                // stream: false  // We don't need streaming for this use case
             });
 
-            const matchingIndices = JSON.parse(completion.choices[0].message.content);
-            return matchingIndices.map(index => chunk[index]);
+            try {
+                const content = completion.choices[0].message.content.trim();
+                // Remove any markdown formatting if present
+                const jsonStr = content.replace(/```json\n?|\n?```/g, '').trim();
+                const matchingIndices = JSON.parse(jsonStr);
+                
+                if (!Array.isArray(matchingIndices)) {
+                    console.error('Invalid response format:', content);
+                    return [];
+                }
+                
+                return matchingIndices.map(index => chunk[index]);
+            } catch (error) {
+                console.error('Error parsing OpenAI response:', error);
+                console.error('Raw response:', completion.choices[0].message.content);
+                return [];
+            }
         })
     );
 
