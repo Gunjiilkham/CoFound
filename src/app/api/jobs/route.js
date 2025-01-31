@@ -1,4 +1,9 @@
 import { NextResponse } from 'next/server';
+import OpenAI from 'openai';
+
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY
+});
 
 export async function GET() {
     // Debug logging
@@ -38,8 +43,11 @@ export async function GET() {
             );
         }
 
-        const data = await response.json();
-        return NextResponse.json(data);
+        const jobsData = await response.json();
+        
+        // Filter internships using OpenAI
+        const filteredJobs = await filterInternships(jobsData.results);
+        return NextResponse.json({ results: filteredJobs });
     } catch (error) {
         console.error('Job fetch error:', error);
         return NextResponse.json(
@@ -47,4 +55,34 @@ export async function GET() {
             { status: 500 }
         );
     }
+}
+
+async function filterInternships(jobs) {
+    const chunks = [];
+    for (let i = 0; i < jobs.length; i += 10) {
+        chunks.push(jobs.slice(i, i + 10));
+    }
+
+    const filteredChunks = await Promise.all(
+        chunks.map(async (chunk) => {
+            const completion = await openai.chat.completions.create({
+                messages: [{
+                    role: "system",
+                    content: "You are a job filtering assistant. Analyze the job listings and return only those that are internships or entry-level positions suitable for students. Return the response as a JSON array of indices of matching positions."
+                }, {
+                    role: "user",
+                    content: JSON.stringify(chunk.map(job => ({
+                        title: job.title,
+                        description: job.description
+                    })))
+                }],
+                model: "gpt-3.5-turbo",
+            });
+
+            const matchingIndices = JSON.parse(completion.choices[0].message.content);
+            return matchingIndices.map(index => chunk[index]);
+        })
+    );
+
+    return filteredChunks.flat();
 }
