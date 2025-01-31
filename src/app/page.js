@@ -1,6 +1,7 @@
 "use client"; // Ensure the file is treated as a client component
 
 import { useRouter } from 'next/navigation';
+import InternshipList from './components/InternshipList';
 
 const Page = () => {
   const router = useRouter();
@@ -86,6 +87,10 @@ const Page = () => {
       <footer className="bg-gray-700 text-slate-200 py-4 text-center">
         <p>&copy; 2024 Tindernship. All rights reserved.</p>
       </footer>
+
+      <main className="min-h-screen bg-gray-50">
+        <InternshipList />
+      </main>
     </div>
   );
 };
