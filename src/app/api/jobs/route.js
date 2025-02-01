@@ -6,49 +6,6 @@ const openai = new OpenAI({
     // organization: "org-xxx",  // Optional - only if you belong to multiple organizations
 });
 
-export async function GET() {
-    if (!process.env.ADZUNA_APP_ID || !process.env.ADZUNA_APP_KEY) {
-        console.error('Adzuna API credentials missing');
-        return NextResponse.json(
-            { error: 'API key configuration error' },
-            { status: 500 }
-        );
-    }
-
-    try {
-        // Using Adzuna API with 'internship' in keywords
-        const response = await fetch(
-            `https://api.adzuna.com/v1/api/jobs/us/search/1?` +
-            `app_id=${process.env.ADZUNA_APP_ID}&` +
-            `app_key=${process.env.ADZUNA_APP_KEY}&` +
-            `results_per_page=50&` +
-            `what=internship%20entry%20level&` + // Search for internship and entry-level positions
-            `content-type=application/json`
-        );
-
-        if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Adzuna API Error:', errorText);
-            return NextResponse.json(
-                { error: `Adzuna API Error: ${response.status}` },
-                { status: response.status }
-            );
-        }
-
-        const jobsData = await response.json();
-        
-        // Filter internships using OpenAI for more accurate results
-        const filteredJobs = await filterInternships(jobsData.results);
-        return NextResponse.json({ results: filteredJobs });
-    } catch (error) {
-        console.error('Job fetch error:', error);
-        return NextResponse.json(
-            { error: error.message },
-            { status: 500 }
-        );
-    }
-}
-
 async function filterInternships(jobs) {
     const chunks = [];
     for (let i = 0; i < jobs.length; i += 10) {
@@ -92,4 +49,62 @@ async function filterInternships(jobs) {
     );
 
     return filteredChunks.flat();
+}
+
+export async function GET() {
+    if (!process.env.ADZUNA_APP_ID || !process.env.ADZUNA_APP_KEY) {
+        console.error('Adzuna API credentials missing');
+        return NextResponse.json(
+            { error: 'API key configuration error' },
+            { status: 500 }
+        );
+    }
+
+    try {
+        const response = await fetch(
+            `https://api.adzuna.com/v1/api/jobs/us/search/1?app_id=${process.env.ADZUNA_APP_ID}&app_key=${process.env.ADZUNA_APP_KEY}&results_per_page=20&what=internship`
+        );
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch jobs from Adzuna');
+        }
+
+        const data = await response.json();
+        
+        // Format the response before sending
+        const formattedJobs = data.results.map(job => ({
+            id: job.id,
+            title: job.title,
+            company: {
+                name: job.company.display_name
+            },
+            location: {
+                city: job.location.display_name,
+                area: job.location.area
+            },
+            description: job.description,
+            salary: {
+                min: job.salary_min,
+                max: job.salary_max
+            },
+            url: job.redirect_url,
+            posted: job.created
+        }));
+
+        return NextResponse.json({
+            success: true,
+            count: formattedJobs.length,
+            results: formattedJobs
+        });
+
+    } catch (error) {
+        console.error('Error fetching jobs:', error);
+        return NextResponse.json(
+            { 
+                success: false, 
+                error: error.message 
+            },
+            { status: 500 }
+        );
+    }
 }
