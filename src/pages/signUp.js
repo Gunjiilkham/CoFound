@@ -47,13 +47,12 @@ const SignUp = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Confirm your password"
         />
-
         <Link href="/profile" passHref> 
           <button>Sign Up!</button>
         </Link>
       </form>
     </div>
   );
-};
+}; 
 
 export default SignUp;
