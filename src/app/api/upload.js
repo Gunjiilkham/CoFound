@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server';
 import formidable from 'formidable';
 import fs from 'fs';
 import path from 'path';
@@ -8,7 +9,8 @@ export const config = {
   },
 };
 
-export default function handler(req, res) {
+// Change to Route Handler format
+export async function POST(req) {
   const form = new formidable.IncomingForm();
   const uploadDir = path.join(process.cwd(), 'uploads');
   form.uploadDir = uploadDir;
@@ -18,29 +20,41 @@ export default function handler(req, res) {
     fs.mkdirSync(uploadDir, { recursive: true });
   }
 
-  form.parse(req, (err, fields, files) => {
-    if (err) {
-      console.error('Error parsing the form:', err);
-      return res.status(500).json({ error: 'Error uploading file' });
-    }
+  // Convert to Promise-based parsing
+  return new Promise((resolve, reject) => {
+    form.parse(req, (err, fields, files) => {
+      if (err) {
+        console.error('Error parsing the form:', err);
+        return resolve(NextResponse.json(
+          { error: 'Error uploading file' },
+          { status: 500 }
+        ));
+      }
 
-    const uploadedFile = files.pdf;
-    if (!uploadedFile) {
-      return res.status(400).json({ error: 'No file uploaded' });
-    }
-{/* Naomi  */}
-    const tempFilePath = uploadedFile.filepath;
-    const permanentFilePath = path.join(uploadDir, uploadedFile.originalFilename);
+      const uploadedFile = files.pdf;
+      if (!uploadedFile) {
+        return resolve(NextResponse.json(
+          { error: 'No file uploaded' },
+          { status: 400 }
+        ));
+      }
 
-    try {
-      fs.renameSync(tempFilePath, permanentFilePath);
-      res.status(200).json({
-        message: 'File uploaded successfully!',
-        filePath: permanentFilePath,
-      });
-    } catch (renameError) {
-      console.error('Error moving the file:', renameError);
-      res.status(500).json({ error: 'Error saving the file' });
-    }
+      const tempFilePath = uploadedFile.filepath;
+      const permanentFilePath = path.join(uploadDir, uploadedFile.originalFilename);
+
+      try {
+        fs.renameSync(tempFilePath, permanentFilePath);
+        resolve(NextResponse.json({
+          message: 'File uploaded successfully!',
+          filePath: permanentFilePath,
+        }));
+      } catch (renameError) {
+        console.error('Error moving the file:', renameError);
+        resolve(NextResponse.json(
+          { error: 'Error saving the file' },
+          { status: 500 }
+        ));
+      }
+    });
   });
 }
