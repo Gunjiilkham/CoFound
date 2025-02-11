@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/router';
+import '../app/globals.css';
 import '../styles/SignIn.css';
+import NavBar from '../app/components/NavBar';
 
 const SignIn = () => {
   const [username, setUsername] = useState('');
@@ -36,30 +38,40 @@ const SignIn = () => {
   };
 
   return (
-    <div className="form-container">
-      <h2>Sign In</h2>
-      {error && <p className="error">{error}</p>}
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="username">Username</label>
-        <input
-          type="text"
-          id="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Enter your username"
-        />
+    <div className="page-container min-h-screen flex flex-col">
+          <nav className="w-full fixed top-0 left-0 bg-black ppx-10 z-50">
+              <NavBar />
+          </nav>
 
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Enter your password"
-        />
+      <div className="flex-grow flex justify-center items-center pt-20">
+        <div className="form-container p-4 mt-12">
+          <h2 className="font-semibold text-xl mb-4">Sign In</h2>
+          {error && <p className="error">{error}</p>}
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Enter your username"
+            />
 
-        <button type="submit">Sign In</button>
-      </form>
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+            />
+
+            <div className="mb-4">
+              <button type="submit">Sign In</button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

@@ -37,7 +37,7 @@ export default function InternshipList() {
     <div className="container mx-auto p-4">
       <div className="flex flex-col items-center gap-6">
         <div className="w-full flex justify-between items-center">
-          <h1 className="text-2xl font-bold">Available Internships</h1>
+          <h1 className="text-2xl font-bold text-slate-600">Available Internships</h1>
           <button 
             onClick={fetchInternships}
             className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-600 transition-colors"

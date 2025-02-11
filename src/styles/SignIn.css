@@ -1,13 +1,12 @@
 body {
-    background-color: #111; /* Dark background for contrast */
-    font-family: 'Arial', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    color: #fff;
-  }
+  background-color: #111; /* Dark background for contrast */
+  font-family: 'Arial', sans-serif;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  color: #fff;
+}
   
   .form-container {
     background-color: #1c1c1c; /* Slightly lighter black for form background */
