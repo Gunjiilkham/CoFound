@@ -1,25 +1,55 @@
 import '../styles/SignIn.css';
 import React, { useState } from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/router'; 
 
 const SignUp = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const router = useRouter(); 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (password !== confirmPassword) {
       alert("Passwords don't match!");
       return;
     }
-    // Handle sign-up logic here, like API calls
-    console.log('Signing up with:', username, password);
+
+    const userData = {
+      username,
+      password,
+    };
+    console.log(process.env.DATABASE_URL);
+    try {
+      const response = await fetch('/api/signUp', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userData),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        alert('User signed up successfully!');
+        // Redirect using Next.js router
+        router.push('/profile'); 
+      } else {
+        setError(data.message || 'Error signing up');
+      }
+    } catch (err) {
+      console.error('Error signing up:', err);
+      setError('Internal server error');
+    }
   };
 
   return (
     <div className="form-container">
       <h2>Sign Up</h2>
+      {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
         <label htmlFor="username">Username</label>
         <input
@@ -47,12 +77,11 @@ const SignUp = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
           placeholder="Confirm your password"
         />
-        <Link href="/profile" passHref> 
-          <button>Sign Up!</button>
-        </Link>
+
+        <button type="submit">Sign Up!</button>
       </form>
     </div>
   );
-}; 
+};
 
 export default SignUp;
