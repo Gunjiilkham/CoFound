@@ -1,31 +1,48 @@
 "use client"; // Ensure the file is treated as a client component
 
 import { useRouter } from 'next/navigation';
-import InternshipList from './components/InternshipList';
+import InternshipList from '../app/components/InternshipList';
+import '../app/globals.css';
 
 const Page = () => {
   const router = useRouter();
   return (
-    <div className="page-container">
-      <header className="header">
-        <h1 className="title">Tindernship</h1>
-        <h2 className="subtitle">Love Your Career</h2>
-      </header>
+    <div className="page-container flex flex-col min-h-screen">
+      <nav className="w-full bg-black sticky top-0 left-0">
+        <header className="sticky w-full flex justify-between px-10 py-1 z-50 bg-black hover:drop-shadow-[0_10px_15px_rgba(0,0,0,0.7)] transition-shadow">
+          <div className="flex items-center">
+            <img src="/favicon2.ico" alt="Logo" className="h-10 w-10 mr-1"/>
+              <h1 className="text-2xl font-serif leading-10 font-semibold text-slate-200 hover:italic">
+              Tindernship</h1>
+          </div>
+          <div className="flex items-center gap-4 ml-auto">
+            <button className="px-15 py-3 cursor-pointer rounded-full bg-slate-200 font-medium basis-1/2 hover:bg-slate-300">
+              <a href="/signUp">
+              Get Started</a>
+            </button>
+            <button className="px-6 py-3 cursor-pointer rounded-full bg-slate-200 font-medium basis-1/2 hover:bg-slate-300">
+              <a href="/signIn">
+              Log In</a>
+            </button>
+          </div>
+        </header>
+      </nav>
 
-      <main>
-        <section id="home">
-          <center>
-            <p>Discover personalized internship suggestions in only a few swipes.</p>
-            <div className="button-container">
-              <button className="auth-button">
-                <a href="/signIn">Sign In</a>
-              </button>
-              <button className="auth-button">
-                <a href="/signUp">Sign Up</a>
+      <main className="min-h-screen w-full flex flex-col items-center justify-center bg-cover bg-center"
+        style={{ backgroundImage: "url('/gradiant-background.jpg')" }}>
+          <section className="text-center px-4">
+            <h2 className="text-3xl md:text-5xl font-bold text-center mb-4 text-slate-800">
+              Love Your Career
+            </h2>
+            <p className="text-lg md:text-xl text-center text-slate-700 mb-8">
+              Explore opportunities in just a few swipes.
+            </p>
+            <div className="flex gap-4 justify-center">
+              <button className="px-15 py-5 bg-blue-800 text-white font-medium rounded-full hover:bg-blue-900">
+                <a href="/signUp">Get Started</a>
               </button>
             </div>
-          </center>
-        </section>
+          </section>
       </main>
 
       <section
@@ -66,13 +83,13 @@ const Page = () => {
           </p>
       </section>
 
-      <footer className="bg-gray-700 text-slate-200 py-4 text-center">
-        <p>&copy; 2024 Tindernship. All rights reserved.</p>
-      </footer>
-
       <main className="min-h-screen bg-gray-50">
         <InternshipList />
       </main>
+    
+      <footer className="bg-gray-700 text-slate-200 py-4 text-center">
+        <p>&copy; 2024 Tindernship. All rights reserved.</p>
+      </footer>
     </div>
   );
 };
