@@ -89,6 +89,7 @@ const Page = () => {
     
       <footer className="bg-gray-700 text-slate-200 py-4 text-center">
         <p>&copy; 2024 Tindernship. All rights reserved.</p>
+        <a href='/about' className="text-blue-500 hover:underline">About</a>
       </footer>
     </div>
   );
