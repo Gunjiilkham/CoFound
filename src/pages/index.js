@@ -2,13 +2,14 @@
 
 import { useRouter } from 'next/navigation';
 import InternshipList from '../app/components/InternshipList';
+import DraggableBoxes from '../app/components/DraggableBoxes';
 import '../app/globals.css';
 
 const Page = () => {
   const router = useRouter();
   return (
     <div className="page-container flex flex-col min-h-screen">
-      <nav className="w-full bg-black sticky top-0 left-0">
+      <nav className="w-full bg-black sticky top-0 left-0 z-50">
         <header className="sticky w-full flex justify-between px-10 py-1 z-50 bg-black hover:drop-shadow-[0_10px_15px_rgba(0,0,0,0.7)] transition-shadow">
           <div className="flex items-center">
             <img src="/favicon2.ico" alt="Logo" className="h-10 w-10 mr-1"/>
@@ -75,12 +76,7 @@ const Page = () => {
 
       <section
         className="min-h-screen w-full flex flex-col items-left place-content-start bg-cover bg-center">
-          <h2 className="text-3xl md:text-5xl font-bold text-left pt-10 mt-10 ml-10 text-slate-900">
-            Swiping Demo
-          </h2>
-          <p className="text-xl md:text-xl italic text-bold text-center text-slate-800 pt-10 mr-10 mb-8">
-            WIP
-          </p>
+          <DraggableBoxes />
       </section>
 
       <main className="min-h-screen bg-gray-50">
