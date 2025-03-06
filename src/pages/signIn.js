@@ -28,6 +28,7 @@ const SignIn = () => {
 
       if (response.ok) {
         alert('User signed in successfully!');
+        router.push('/profile');
       } else {
         setError(data.message || 'Error signing in');
       }
