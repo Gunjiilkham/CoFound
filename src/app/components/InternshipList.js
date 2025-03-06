@@ -6,11 +6,17 @@ export default function InternshipList() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [userField, setUserField] = useState('');
 
   const fetchInternships = async () => {
     setLoading(true);
+    setError('');
     try {
-      const response = await fetch('/api/jobs');
+      const userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+      const field = userProfile.field || '';
+      setUserField(field);
+      
+      const response = await fetch(`/api/jobs?industry=${field}`);
       const data = await response.json();
       
       if (!data.success) {
@@ -63,16 +69,23 @@ export default function InternshipList() {
                 
                 <div className="mb-3">
                   <p className="text-gray-700 font-medium">{job.company.name}</p>
-                  <p className="text-gray-600 text-sm">{job.location.city}</p>
+                  <p className="text-gray-600 text-sm">
+                    {job.location.city || job.location.display_name}
+                    {job.location.area && job.location.area.length > 1 && `, ${job.location.area[1]}`}
+                  </p>
                 </div>
                 
                 <p className="text-gray-600 text-sm mb-4">
                   {truncateText(job.description)}
                 </p>
                 
-                {job.salary.min && (
+                {job.salary.hourlyMin && (
                   <p className="text-sm text-gray-700 mb-3">
-                    Salary: ${Math.round(job.salary.min).toLocaleString()} - ${Math.round(job.salary.max).toLocaleString()}
+                    {job.salary.hourlyMin === job.salary.hourlyMax ? (
+                      <>Hourly Pay: ${job.salary.hourlyMin} per hour</>
+                    ) : (
+                      <>Hourly Pay: ${job.salary.hourlyMin} - ${job.salary.hourlyMax} per hour</>
+                    )}
                   </p>
                 )}
                 
