@@ -1,8 +1,9 @@
 "use client"; // Ensure the file is treated as a client component
 
 import { useRouter } from 'next/navigation';
-import InternshipList from '../app/components/InternshipList';
-import DraggableBoxes from '../app/components/DraggableBoxes';
+// Removing these imports as we're removing the components
+// import InternshipList from '../app/components/InternshipList';
+// import DraggableBoxes from '../app/components/DraggableBoxes';
 import '../app/globals.css';
 
 const Page = () => {
@@ -74,14 +75,9 @@ const Page = () => {
         </div>
       </section>
 
-      <section
-        className="min-h-screen w-full flex flex-col items-left place-content-start bg-cover bg-center">
-          <DraggableBoxes />
-      </section>
-
-      <main className="min-h-screen bg-gray-50">
-        <InternshipList />
-      </main>
+      {/* Removed DraggableBoxes section */}
+      
+      {/* Removed InternshipList section */}
     
       <footer className="bg-gray-700 text-slate-200 py-4 text-center">
         <p>&copy; 2024 Tindernship. All rights reserved.</p>
