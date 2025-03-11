@@ -18,6 +18,5 @@ Tindernship is built using the following technologies:
 - **Backend**: Node.js, Express, Flask
 - **Database**: PostgreSQL, MongoDB
 - **Authentication**: Firebase Auth, OAuth 2.0
-- **Hosting**: AWS (S3, EC2, RDS), Vercel
 - **DevOps**: Docker, Kubernetes, GitHub Actions
 - **AI Matching**: TensorFlow, OpenAI API (GPT models)
