@@ -8,7 +8,6 @@ Cofound is an innovative platform designed to connect students with internships 
 - **Smart Matching**: AI-driven algorithms match students with internships that align with their goals and qualifications.
 - **Streamlined Applications**: Apply to internships directly through the platform with a simple and user-friendly interface.
 - **Company Dashboard**: Startups and small businesses can create profiles to post opportunities and find talented candidates.
-- **Interactive Reviews**: Students and employers can provide feedback and reviews to enhance the experience.
 
 ## Tech Stack
 
